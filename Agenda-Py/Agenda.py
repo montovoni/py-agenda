@@ -1,5 +1,6 @@
 AGENDA = {}
-print("\033[31mDOUGLAS MONTOVONI BATITSA\033[m")
+print("BY DOUGLAS MONTOVONI BATITSA")
+print('==================================================')
 
 def mostrar_contatos():
      for contato in AGENDA:
@@ -7,21 +8,23 @@ def mostrar_contatos():
 
 def buscar_contato(contato):
     try:
+        print('--------------------------------------------')
         print('Nome:', contato)
         print('Telefone:', AGENDA[contato]['telefone'])
         print('Email:', AGENDA[contato]['email'])
         print('Endereço:', AGENDA[contato]['endereco'])
         print('--------------------------------------------')
     except KeyError:
-        print('\033[31m>>>> Contato inexistente <<<<\033[m')
+        print('>>>> Contato inexistente <<<<  ')
     except Exception as error:
-        print('\033[31m>>>> Um erro inesperado ocorreu <<<<\033[m')
+        print('>>>> Um erro inesperado ocorreu <<<<  ')
         print(error)
 
 def ler_detalhes_contatos():
-    telefone = input('Digite o nome do telefone: ')
-    email = input('Digite o nome do email: ')
-    endereco = input('Digite o nome do endereco: ')
+    telefone = input('Digite o telefone: ')
+    email    = input('Digite o email: ')
+    endereco = input('Digite o endereco: ')
+    print('--------------------------------------------')
     return telefone, email, endereco
 
 def incluir_editar_contato(contato, telefone, email, endereco):
@@ -31,18 +34,18 @@ def incluir_editar_contato(contato, telefone, email, endereco):
         'endereco': endereco,
     }
     salvar()
-    print('\033[31m>>>> Contato {} adicionado/editado com sucesso <<<<\033[m'.format(contato))
+    print('>>>> Contato {} adicionado/editado com sucesso <<<<  '.format(contato))
 
 
 def excluir_contato(contato):
     try:
         AGENDA.pop(contato)
         salvar()
-        print('\033[31m>>>> Contato {} excluido com sucesso <<<<\033[m'.format(contato))
+        print('>>>> Contato {} excluido com sucesso <<<<'.format(contato))
     except KeyError:
-        print('\033[31m>>>> Contato inexistente <<<<\033[m')
+        print('>>>> Contato inexistente <<<<')
     except Exception as error:
-        print('\033[31m>>>> Um erro inesperado ocorreu <<<<\033[m')
+        print('>>>> Um erro inesperado ocorreu <<<<')
         print(error)
 
 def exportar_contatos(nome_do_arquivo):
@@ -53,9 +56,9 @@ def exportar_contatos(nome_do_arquivo):
                 email = AGENDA[contato]['email']
                 endereco = AGENDA[contato]['endereco']
                 arquivo.write("{},{},{},{}\n".format(contato, telefone, email, endereco))
-        print('\033[31m>>>> Agenda exportada com sucesso <<<<\033[m')
+        print('>>>> Agenda exportada com sucesso <<<<')
     except Exception as error:
-        print('\033[31m>>>> Algum erro ocorreu ao exportar contatos <<<<\033[m')
+        print('>>>> Algum erro ocorreu ao exportar contatos <<<<')
         print(error)
 
 
@@ -73,9 +76,9 @@ def importar_contatos(nome_do_arquivo):
 
                 incluir_editar_contato(nome, telefone, email, endereco)
     except FileNotFoundError:
-        print('\033[31m>>>> Arquivo não encontrado <<<<\033[m')
+        print('>>> Arquivo não encontrado <<<<')
     except Exception as error:
-        print('\033[31m>>>> Algum erro inesperado ocorreu <<<<\033[m')
+        print('>>>> Algum erro inesperado ocorreu <<<<')
         print(error)
 
 def salvar():
@@ -98,16 +101,16 @@ def carregar():
                     'email': email,
                     'endereco': endereco,
                 }
-        print("\033[31mDATABASE CARREGANDO....... \033[m")
-        print("\033[31m{} - Contatos carregados com sucesso\033[m".format(len(AGENDA)))
+        print("DATABASE CARREGANDO.......   ")
+        print("{} - Contatos carregados com sucesso  ".format(len(AGENDA)))
     except FileNotFoundError:
-        print('\033[31m>>>> Arquivo não encontrado <<<<\033[m')
+        print('>>>> Arquivo não encontrado <<<<')
     except Exception as error:
-        print('\033[31m>>>> Algum erro inesperado ocorreu <<<<\033[m')
+        print('>>>> Algum erro inesperado ocorreu <<<<')
         print(error)
 
 def imprimir_menu():
-    print('\033[92m=========================================')
+    print('==================================================')
     print("[1] - Mostrar todos os contatos da agenda")
     print("[2] - Buscar contato ")
     print("[3] - Incluir contato")
@@ -116,14 +119,14 @@ def imprimir_menu():
     print("[6] - Exportar contatos para CSV ")
     print("[7] - Importar contatos CSV ")
     print("[0] - Fechar programa ")
-    print('==================================================\033[m')
+    print('==================================================')
 
 #INICIO DO PROGRAMA
 carregar()
 while True:
 
     imprimir_menu()
-    escolha = input("\033[34mEcolha uma opção:\033[m")
+    escolha = input("Ecolha uma opção:  ")
 
     if escolha == '1':
 
@@ -137,11 +140,13 @@ while True:
         contato = input("Digite o contato: ")
         buscar_contato(contato)
     elif escolha == '3':
+        print('--------------------------------------------')
         contato = input('Digite o nome do contato: ')
 
         try:
             AGENDA[contato]
-            print('\033[31m>>>> Contato já existente <<<<\033[m')
+            print('--------------------------------------------')
+            print('>>>> Contato já existente <<<<')
         except KeyError:
             telefone, email, endereco = ler_detalhes_contatos()
             incluir_editar_contato(contato, telefone, email, endereco)
@@ -155,7 +160,7 @@ while True:
             telefone, email, endereco = ler_detalhes_contatos()
             incluir_editar_contato(contato, telefone, email, endereco)
         except KeyError:
-            print('\033[31m>>>> Contato inexistente <<<<\033[m')
+            print('>>>> Contato inexistente <<<<  ')
 
     elif escolha == '5':
         contato = input("Qual contato você deseja excluir: ")
@@ -167,7 +172,7 @@ while True:
         nome_do_arquivo = input("Digite o nome do arquivo a ser importado: ")
         importar_contatos(nome_do_arquivo)
     elif escolha == '0':
-        print("\033[31m>>>> Programa encerrado <<<<\033[m")
+        print(">>> Programa encerrado <<<< ")
         break
     else:
-        print("\033[31m>>>> Opção invalida <<<<\033[m")
+        print(">>>> Opção invalida <<<< ")
